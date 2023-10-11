@@ -1,0 +1,247 @@
+<form accept-charset="UTF-8" method="post" action="%%form-action-url%%" class="form" id="pardot-form">
+    %%form-opening-general-content%%
+
+    %%form-if-thank-you%%
+    %%form-javascript-focus%%
+    %%form-thank-you-content%%
+    %%form-thank-you-code%%
+    %%form-end-if-thank-you%%
+
+
+    %%form-if-thank-you%%
+    <style>
+        form.form {
+            font-size: 16px;
+            padding: 1.5em;
+        }
+
+        form#pardot-form p {
+            line-height: 1.5;
+        }
+    </style>
+    %%form-end-if-thank-you%%
+
+
+    %%form-if-display-form%%
+
+    %%form-before-form-content%%
+    <div style="background:#f7f7f7; margin-Top:30px;">
+        %%form-if-error%%
+        <p class="errors">Please correct the errors below:</p>
+        %%form-end-if-error%%
+
+        <span id="formwrap">
+            %%form-start-loop-fields%%
+            <p
+                class="form-field %%form-field-css-classes%% %%form-field-class-type%% %%form-field-class-required%% %%form-field-class-hidden%% %%form-field-class-no-label%% %%form-field-class-error%% %%form-field-dependency-css%%">
+                %%form-if-field-label%%
+                <label class="field-label" for="%%form-field-id%%">%%form-field-label%%</label>
+                %%form-end-if-field-label%%
+                <span class="input-wrapper">%%form-field-input%%</span>
+                %%form-if-field-description%%
+                <span class="description">%%form-field-description%%</span>
+                %%form-end-if-field-description%%
+            </p>
+            <div id="error_for_%%form-field-id%%" style="display:none"></div>
+            %%form-field-if-error%%
+            <p class="error no-label">%%form-field-error-message%%</p>
+            %%form-field-end-if-error%%
+            %%form-end-loop-fields%%
+        </span>
+        <!--formwrap終了-->
+        %%form-spam-trap-field%%
+
+
+        <!-- forces IE5-8 to correctly submit UTF8 content  -->
+        <input name="_utf8" type="hidden" value="&#9731;" />
+
+
+
+
+
+        <p class="comment">
+            <strong>■Purpose of use of personal information</strong><br>
+            Personal information collected through the forms on our website will be used for the following purposes:<br>
+            - To respond appropriately to inquiries and requests, including replying and sending information<br>
+            - To confirm the identity of the person making the inquiry, as needed, when receiving subsequent
+            communications<br>
+            - To carry out statistical analysis related to inquiries<br>
+            <br>
+            <strong>■Provision of personal information to third parties</strong><br>
+            Altius Link will not provide information acquired through our forms to a third party unless the person
+            concerned has given their consent, or we are required to do so by law.<br>
+            <br>
+            <strong>■Outsourcing handling of personal information</strong><br>
+            The handling of personal information collected by Altius Link may be outsourced to an external company which
+            maintains the standards required to protect personal information. This handling will be limited to the scope
+            necessary to fulfil the purpose of use.<br>
+            <br>
+            <strong>■Disclosure, etc. of personal information collected by Altius Link and other inquiries</strong><br>
+            Upon request from the person concerned, Altius Link will provide notification regarding the purpose of use,
+            disclose, correct, add, delete, stop usage, or erase (hereinafter, “disclosure, etc.”) the personal
+            information it has collected.<br>
+            <br>
+            If you wish to request disclosure, etc. or make a complaint, please contact the Personal Information
+            Protection Desk indicated in our company’s Privacy Policy.<br>
+            <br>
+            <strong>■Personal information protection manager</strong><br>
+            Officer in charge of information security at Altius Link<br>
+            <br>
+            While the provision of personal information is optional, failure to provide the necessary information may
+            prevent us from sending messages, providing information, or responding to inquiries, etc.<br>
+            <br>
+            I've read and agreed to the <a href="https://www.altius-link.com/eng/privacy/" target="_blank"
+                rel="noopener noreferrer">Privacy policy</a><br>
+            If you agree, we may use cookie to analyze data of web traffic and your personal information to improve user
+            experience.
+        </p>
+
+
+
+
+
+
+
+
+
+        <p class="submit">
+            <input type="button" class="back" value="Back" onclick="backButton()" id="back" />
+            <input type="submit" class="form_submit" accesskey="s" value="Submit" %%form-submit-disabled%%
+                id="submit" />
+            <input type="button" class="confirm" value="Confirm" onclick="confirmButton()" id="confirm" />
+
+        </p>
+        <!--メールアドレス不一致時エラーメッセージ-->
+        <div class="emailError">Missmatch Email adress</div>
+
+        <script>
+            function confirmButton() {
+                //確認は最初から表示、確認が押されたら入力不可、送信と戻るボタンで表示
+                location.hash = "#formwrap";
+                document.getElementById('back').style.display = 'inline-block';
+                document.getElementById('submit').style.display = 'inline-block';
+                document.getElementById('confirm').style.display = 'none';
+                const getselector = document.querySelectorAll('#formwrap input[type=text],#formwrap input[type=checkbox],#formwrap .standard,#formwrap input[type=radio],#formwrap .date hasDatepicker,#formwrap .pd-select select');
+                getselector.forEach(function (element) {
+                    element.disabled = true;
+                    //const getradiocheck = doucument.querySelectorAll('#formwrap input[type=checkbox],#formwrap input[type=radio]');
+                    // getradiocheck.forEach(function(e){
+                    //     e.onclick = return false;
+                    // });
+
+
+
+
+
+                });
+            }
+            function backButton() {
+                console.log("テスト");
+                location.hash = '#pardot-form';
+                document.getElementById('back').style.display = 'none';
+                document.getElementById('submit').style.display = 'none';
+                document.getElementById('confirm').style.display = 'inline-block';
+                const getselector = document.querySelectorAll('#formwrap input[type=text],#formwrap input[type=checkbox],#formwrap .standard,#formwrap input[type=radio],#formwrap .date hasDatepicker,#formwrap .pd-select select');
+
+                getselector.forEach(function (element) {
+                    element.disabled = false;
+                });
+
+            }
+
+
+            //メアド不一致でエラー文出す　(.emailError)
+            var errorMessage = document.querySelector('.emailError');
+            var email = document.querySelector('.email .input-wrapper input[type=text]');
+            var confirm_email = document.querySelector('.confirm_email .input-wrapper input[type=text]');
+            var getconfirmbutton = document.querySelector('.confirm');
+
+
+
+            //メアド一致確認
+            function emailCheck() {
+                console.log(getconfirmbutton);
+
+                if (email.value == '' && confirm_email.value == '') {
+                    errorMessage.style.display = 'block';
+                    getconfirmbutton.disabled = true;
+                    email.style.background = 'Lightyellow';
+                    confirm_email.style.background = 'Lightyelow';
+                    getconfirmbutton.style.background = '#8fbc8f';
+                    console.log("1-1");
+
+                } else if (email.value == confirm_email.value) {
+                    errorMessage.style.display = 'none';
+                    email.style.background = '';
+                    confirm_email.style.background = '';
+                    getconfirmbutton.disabled = false;
+                    getconfirmbutton.style.background = '#008250';
+                    console.log("2-1");
+                }
+                if (email.value != confirm_email.value) {
+                    errorMessage.style.display = 'block';
+                    console.log("3-1");
+                    email.style.background = 'Lightyellow';
+                    confirm_email.style.background = 'Lightyellow';
+                    getconfirmbutton.disabled = true;
+                    getconfirmbutton.style.background = '#8fbc8f';
+
+
+                }
+
+            }
+
+
+
+            email.onchange = emailCheck;
+            confirm_email.onchange = emailCheck;
+
+
+
+            const formData = document.querySelector('.form');
+            formData.addEventListener('submit', beforesubmit);
+
+
+            function beforesubmit() {
+                console.log('submit test');
+                console.log(event);
+                const alltarget = event.target.querySelectorAll('#formwrap input[type=text],#formwrap input[type=checkbox],#formwrap .standard,#formwrap input[type=radio],#formwrap .date hasDatepicker,#formwrap .pd-select select');
+                alltarget.forEach(function (element) { element.disabled = false; });
+            }
+            //送信前処理
+
+        </script>
+
+    </div>
+    %%form-after-form-content%%
+
+    %%form-end-if-display-form%%
+
+    %%form-javascript-link-target-top%%
+</form>
+
+<script>
+    function sendClientHeightMessage() {
+        var target = window.parent.postMessage ? parent : (window.parent.document.postMessage ? window.parent.document : undefined);
+        if (!target || !document.body.scrollHeight) {
+            return
+        }
+        target.postMessage(
+            {
+                action: "SYNC_HEIGHT",
+                value: document.body.scrollHeight
+            },
+            "https://www.services.altius-link.com" // 親ページのドメイン
+        );
+    }
+    function sendClientLoad() {
+        sendClientHeightMessage();
+        var target = window.parent.postMessage ? parent : (window.parent.document.postMessage ? window.parent.document : undefined);
+        if (!target) { return }
+        target.postMessage({ action: "SYNC_LOAD" },
+            "https://www.services.altius-link.com" // 親ページのドメイン
+        );
+    }
+    window.addEventListener("load", sendClientLoad);
+    window.addEventListener("resize", sendClientHeightMessage);
+</script>

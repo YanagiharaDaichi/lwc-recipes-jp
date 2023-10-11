@@ -1,0 +1,235 @@
+<form accept-charset="UTF-8" method="post" action="%%form-action-url%%" class="form" id="pardot-form">
+    %%form-opening-general-content%%
+
+    %%form-if-thank-you%%
+    <div id="Form-if-thank-you">
+        %%form-javascript-focus%%
+        %%form-thank-you-content%%
+        %%form-thank-you-code%%
+        %%form-end-if-thank-you%%
+
+        %%form-if-display-form%%
+
+        %%form-before-form-content%%
+        <div style="background:#f7f7f7; margin-Top:0px;">
+            %%form-if-error%%
+            <p class="errors">Please correct the errors below:</p>
+            %%form-end-if-error%%
+
+            <div id="confirmMessTop" style="
+    display: none;
+    text-align: left;
+    color: rgb(205, 33, 33);
+    font-size: 130%;
+    max-width: calc(100% - 60px);
+    margin: 30px auto;
+    line-height: 1.5;
+    "><span style="font-weight:bold">内容に間違いはないかご確認ご確認ください。</span><br>修正するには下にスクロールし「戻る」ボタンを押してください。</div>
+
+            <span id="formwrap">
+                %%form-start-loop-fields%%
+                <p
+                    class="form-field %%form-field-css-classes%% %%form-field-class-type%% %%form-field-class-required%% %%form-field-class-hidden%% %%form-field-class-no-label%% %%form-field-class-error%% %%form-field-dependency-css%%">
+                    %%form-if-field-label%%
+                    <label class="field-label" for="%%form-field-id%%">%%form-field-label%%</label>
+                    %%form-end-if-field-label%%
+                    <span class="input-wrapper">%%form-field-input%%</span>
+                    %%form-if-field-description%%
+                    <span class="description">%%form-field-description%%</span>
+                    %%form-end-if-field-description%%
+                </p>
+                <div id="error_for_%%form-field-id%%" style="display:none"></div>
+                %%form-field-if-error%%
+                <p class="error no-label">%%form-field-error-message%%</p>
+                %%form-field-end-if-error%%
+                %%form-end-loop-fields%%
+            </span>
+            <!--formwrap終了-->
+            %%form-spam-trap-field%%
+
+            <!-- forces IE5-8 to correctly submit UTF8 content  -->
+            <input name="_utf8" type="hidden" value="&#9731;" />
+
+
+
+
+
+
+
+
+            <p class="comment">
+                ■個人情報の利用目的<br>
+                当サイトの資料ダウンロードフォームにより取得した個人情報は以下の目的で利用いたします。<br>
+                ・いただいたお問合せやご要望に対し、回答、送付など適切に対応するため<br>
+                ・再度ご連絡いただいた際に、必要に応じてご本人である旨の確認を行うため<br>
+                ・いただいたお問合せに関し、統計的な分析を行うため<br><br>
+
+                ■個人情報の第三者提供について<br>
+                当社は、ご本人の同意がある場合または法令に基づく場合を除き、当サイトの資料ダウンロードフォームにより取得した個人情報は第三者に提供いたしません。<br><br>
+
+                ■個人情報の取り扱いの委託について<br>
+                取得した個人情報は、利用目的の達成に必要な範囲内において、十分な個人情報の保護水準を満たす外部の事業者にその取り扱いを委託する場合があります。<br><br>
+
+                ■取得した個人情報に関する開示等およびお問合せ窓口<br>
+                当社は、ご本人からの求めにより、取得した個人情報の利用目的の通知、開示、内容の訂正・追加または、削除・利用停止・消去（以下「開示等」といいます。）に応じます。<br>
+                開示等ご請求をされる場合、または苦情をご申告される場合には、当社のプライバシーポリシーに掲載の個人情報保護窓口までお問合せください。<br><br>
+
+                ■個人情報保護管理者<br>
+                当社情報セキュリティ担当役員<br><br>
+
+                個人情報の提供はご本人様の任意ではありますが、必要な項目を提供いただけない場合、当社からの連絡や案内が行えない、お問合せに応じられない等の不都合が生じる可能性があります。<br>
+                当社の<a href="https://www.altius-link.com/privacy/" target="_blank"
+                    rel="noopener noreferrer">プライバシーポリシー</a>についてもご確認いただき、同意の上、送信してください。<br><br>
+
+                尚、当サイトでは、お客様が訪問した際、より便利に閲覧ができるよう、継続的なWebサイト改善のための情報取得を目的として、Cookieを使用しております。<br><br>
+
+                I've read and agreed to the privacy policy(<a href="https://www.altius-link.com/eng/privacy/"
+                    target="_blank" rel="noopener noreferrer">https://www.altius-link.com/eng/privacy/</a>)<br>If you
+                agree, we may use cookie to analyze data of web traffic and your personal information to improve user
+                experience.
+            </p>
+
+
+
+
+
+
+
+        </div>
+
+        <p class="submit">
+            <input type="button" class="back" value="戻る" onclick="backButton()" id="back" />
+            <input type="submit" class="form_submit" accesskey="s" value="%%form-submit-button-text%%"
+                %%form-submit-disabled%% id="submit" />
+            <input type="button" class="confirm" value="確認" onclick="confirmButton()" id="confirm" />
+        </p>
+        <div id="confirmMess"
+            style="display:none;text-align:center;margin:15px 0 30px 0;color:#cd2121;font-size:120%;line-height:1.5">
+            <span style="font-weight:bold">内容に間違いはないか上にスクロールしてご確認ください。</span><br>問題がなければ「送信」ボタンをボタンを押してください。</div>
+        <!--メールアドレス不一致時エラーメッセージ-->
+        <div class="emailError">メールアドレスが間違っています</div>
+
+        <script>
+            function confirmButton() {
+                console.log("test");
+                //確認は最初から表示、確認が押されたら入力不可、送信と戻るボタンで表示
+                location.hash = "#formwrap";
+                document.getElementById('back').style.display = 'inline-block';
+                document.getElementById('submit').style.display = 'inline-block';
+                document.getElementById('confirmMess').style.display = 'block';
+                document.getElementById('confirmMessTop').style.display = 'block';
+                document.getElementById('confirm').style.display = 'none';
+                const getselector = document.querySelectorAll('#formwrap input[type=text],#formwrap input[type=checkbox],#formwrap .standard,#formwrap input[type=radio],#formwrap .date hasDatepicker,#formwrap .pd-select select');
+                getselector.forEach(function (element) {
+                    element.disabled = true;
+                });
+
+            }
+            function backButton() {
+                location.hash = '#pardot-form';
+                document.getElementById('back').style.display = 'none';
+                document.getElementById('submit').style.display = 'none';
+                document.getElementById('confirm').style.display = 'inline-block';
+                document.getElementById('confirmMess').style.display = 'none';
+                document.getElementById('confirmMessTop').style.display = 'none';
+                const getselector = document.querySelectorAll('#formwrap input[type=text],#formwrap input[type=checkbox],#formwrap .standard,#formwrap input[type=radio],#formwrap .date hasDatepicker,#formwrap .pd-select select');
+                getselector.forEach(function (element) {
+                    element.disabled = false;
+                });
+            }
+
+            //メアド不一致でエラー文出す
+            var errorMessage = document.querySelector('.emailError');
+            var email = document.querySelector('.email .input-wrapper input[type=text]');
+            var confirm_email = document.querySelector('.confirm_email .input-wrapper input[type=text]');
+            var getconfirmbutton = document.querySelector('.confirm');
+
+
+
+            //メアド一致確認
+            function emailCheck() {
+                console.log(getconfirmbutton);
+
+                if (email.value == '' && confirm_email.value == '') {
+                    errorMessage.style.display = 'block';
+                    getconfirmbutton.disabled = true;
+                    email.style.background = 'Lightyellow';
+                    confirm_email.style.background = 'Lightyelow';
+                    getconfirmbutton.style.background = '#8fbc8f';
+
+                } else if (email.value == confirm_email.value) {
+                    errorMessage.style.display = 'none';
+                    email.style.background = '';
+                    confirm_email.style.background = '';
+                    getconfirmbutton.disabled = false;
+                    getconfirmbutton.style.background = '#008250';
+                }
+                if (email.value != confirm_email.value) {
+                    errorMessage.style.display = 'block';
+                    email.style.background = 'Lightyellow';
+                    confirm_email.style.background = 'Lightyellow';
+                    getconfirmbutton.disabled = true;
+                    getconfirmbutton.style.background = '#8fbc8f';
+
+
+                }
+
+            }
+
+
+
+            email.onchange = emailCheck;
+            confirm_email.onchange = emailCheck;
+
+            const formData = document.querySelector('.form');
+            formData.addEventListener('submit', beforesubmit);
+
+
+            function beforesubmit() {
+                const alltarget = event.target.querySelectorAll('#formwrap input[type=text],#formwrap input[type=checkbox],#formwrap .standard,#formwrap input[type=radio],#formwrap .date hasDatepicker,#formwrap .pd-select select');
+                alltarget.forEach(function (element) { element.disabled = false; });
+            }
+            //送信前処理
+
+
+        </script>
+
+    </div>
+    %%form-after-form-content%%
+
+    %%form-end-if-display-form%%
+
+    %%form-javascript-link-target-top%%
+
+
+    %%form-if-thank-you%%
+    </div><!--Form-if-thank-you-->
+    %%form-end-if-thank-you%%
+
+</form>
+
+<script>
+    function sendClientHeightMessage() {
+        var target = window.parent.postMessage ? parent : (window.parent.document.postMessage ? window.parent.document : undefined);
+        if (!target || !document.body.scrollHeight) {
+            return
+        }
+        target.postMessage(
+            {
+                action: "SYNC_HEIGHT",
+                value: document.body.scrollHeight
+            },
+            "https://www.services.altius-link.com" // 親ページのドメイン
+        );
+    }
+    function sendClientLoad() {
+        sendClientHeightMessage();
+        var target = window.parent.postMessage ? parent : (window.parent.document.postMessage ? window.parent.document : undefined);
+        if (!target) { return }
+        target.postMessage({ action: "SYNC_LOAD" },
+            "https://www.services.altius-link.com" // 親ページのドメイン
+        );
+    }
+    window.addEventListener("load", sendClientLoad);
+    window.addEventListener("resize", sendClientHeightMessage);
+</script>

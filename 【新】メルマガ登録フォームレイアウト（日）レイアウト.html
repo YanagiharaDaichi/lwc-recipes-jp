@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @charset "UTF-8";
+
+        /* media query */
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-size: 1.6rem;
+            color: #373a3c;
+            font-family: YakuHanJP, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+        }
+
+        @media screen and (max-width: 520px) {
+            body {
+                font-size: 1.4rem;
+            }
+        }
+
+        .ui-widget-header {
+            background-color: #fff;
+            border: none;
+        }
+
+        .ui-datepicker {
+            border: 1px solid #5a5a5a;
+            background-color: #fff;
+        }
+
+        .ui-datepicker table thead {
+            border-bottom: 1px solid #e6e6ee;
+        }
+
+        .ui-datepicker .ui-state-default,
+        .ui-datepicker .ui-widget-content .ui-state-default,
+        .ui-datepicker .ui-widget-header .ui-state-default,
+        .ui-datepicker .ui-button,
+        .ui-datepicker html .ui-button.ui-state-disabled:hover,
+        .ui-datepicker html .ui-button.ui-state-disabled:active {
+            border: none;
+            background-color: #fff;
+        }
+
+        .ui-datepicker-calendar thead {
+            border-bottom: 1px solid #e7e7ef;
+        }
+
+        form.form .form-before-contents {
+            padding: 0 20px;
+            width: calc(100% - 20px * 2);
+            margin-bottom: 80px;
+        }
+
+        form.form .form-before-contents p {
+            line-height: 1.5em;
+            margin: 0;
+        }
+
+        form.form .form-before-contents .errors {
+            margin-top: 20px;
+        }
+
+        form.form .form-field {
+            margin: 20px 0 0 0;
+            clear: both;
+
+        }
+
+        form.form .form-field.before_hr {
+            padding-top: 60px;
+            margin-top: 0;
+        }
+
+        form.form .form-field.before_hr:before {
+            content: "";
+            display: block;
+            border-bottom: 1px solid #a3a3a3;
+            margin: 0 0 60px 0;
+        }
+
+        form.form .form-field.after_hr:after {
+            content: "";
+            display: block;
+            border-bottom: 1px solid #a3a3a3;
+            margin: 60px 0;
+        }
+
+        form.form .form-field.after_hr+div+.input-inline_3-1,
+        form.form .form-field.after_hr+div+.input-inline_3-1+div+.input-inline_3-2,
+        form.form .form-field.after_hr+div+.input-inline_3-1+div+.input-inline_3-2+div+.input-inline_3-3,
+        form.form .form-field.after_hr+div+.input-inline_2-1,
+        form.form .form-field.after_hr+div+.input-inline_2-1+div+.input-inline_2-2 {
+            margin-top: 0;
+        }
+
+        form.form .form-field.error {
+            margin-bottom: 0;
+            font-weight: 500;
+
+        }
+
+        form.form .form-field.no-margin-bottom {
+            margin-bottom: 0;
+        }
+
+        form.form .field-label {
+            display: block;
+            color: #008250;
+            width: calc(100% - 20px * 2);
+            padding: 0 20px;
+            margin-bottom: 8px;
+            height: 22px;
+            font-weight: bold
+        }
+
+        form.form .no-label {
+            width: calc(100% - 20px * 2);
+            padding: 0 20px;
+        }
+
+        form.form .no-label .field-label {
+            display: none;
+        }
+
+        form.form .input-wrapper {
+            display: block;
+            width: calc(100% - 20px * 2);
+            padding: 0 20px;
+        }
+
+        form.form .hpdf-description {
+            display: block;
+            width: calc(100% - 20px * 2);
+            padding: 10px 20px;
+        }
+
+        form.form div.emailError {
+            display: none;
+            text-align: center;
+            font-weight: bold;
+            color: #cd2121;
+            font-size: 15pt;
+            /*メールエラー編集*/
+        }
+
+        form.form p.required label.field-label,
+        form.form span.required label.field-label {
+            background: inherit;
+        }
+
+        form.form p.required label.field-label::after,
+        form.form span.required label.field-label::after {
+            content: "必須";
+            line-height: 1;
+            font-size: 1.2rem;
+            display: inline-block;
+            color: #cd2121;
+            padding: 5px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+
+        form.form .errors {
+            color: #cd2121;
+            border: 1px solid #cd2121;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #pardot-form form.form p.error span.input-wrapper label,
+        #pardot-form form.form p.error span.error {
+            color: #cd2121;
+        }
+
+        #pardot-form p.error span.input-wrapper .inline {
+            color: #cd2121;
+        }
+
+        }
+
+        form.form p.error.no-label:not(.form-field) {
+            box-sizing: border-box;
+            color: #cd2121;
+            clear: both;
+            margin: 0;
+            padding: 10px 20px;
+        }
+
+        form.form textarea+p.error.no-label:not(.form-field),
+        form.form input+p.error.no-label:not(.form-field) {
+            padding: 10px 0;
+            margin: 0;
+        }
+
+        body.form-width-fix form.form {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 520px) {
+            form.form .form-field {
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+
+            form.form .form-field.before_hr {
+                padding-top: 40px;
+            }
+
+            form.form .form-field.before_hr:before {
+                margin: 0 0 40px 0;
+            }
+
+            form.form .form-field.after_hr+div+.input-inline_3-1+div+.input-inline_3-2,
+            form.form .form-field.after_hr+div+.input-inline_3-1+div+.input-inline_3-2+div+.input-inline_3-3,
+            form.form .form-field.after_hr+div+.input-inline_2-1+div+.input-inline_2-2 {
+                margin-top: 10px;
+            }
+
+            form.form .form-field.after_hr:after {
+                margin: 40px 0;
+            }
+
+            form.form .form-before-contents {
+                width: calc(100% - 10px * 2);
+                padding: 0 10px;
+                margin-bottom: 40px;
+            }
+
+            form.form .field-label {
+                width: 100%;
+                padding: 0;
+                height: 22px;
+                font-weight: bold;
+
+            }
+
+            form.form .field-label .error {
+                font-weight: 500;
+            }
+
+            form.form .no-label {
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            form.form .input-wrapper {
+                width: 100%;
+                padding: 0;
+            }
+
+            form.form .hpdf-description {
+                width: calc(100% - 10px * 2);
+                padding: 10px 0;
+            }
+
+            form.form p.error.no-label:not(.form-field) {
+                color: #cd2121;
+                clear: both;
+                padding: 10px 10px 0 10px;
+                margin: 0;
+            }
+
+            form.form .form-field p.error.no-label {
+                padding: 10px 0;
+            }
+
+            body.form-width-fix form.form {
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+
+        form.form .pd-text input.text {
+            border: 1px solid #c8ced5;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 15px;
+            height: 40px;
+            width: 60%;
+        }
+
+        form.form .pd-text input.text.error {
+            border: 1px solid #cd2121;
+        }
+
+        form.form .pd-text.input-300 input.text {
+            width: 300px;
+        }
+
+        form.form .pd-text.error input.text {
+            border: 1px solid #cd2121;
+        }
+
+        form.form .form-field.input-inline_2-1,
+        form.form .form-field.input-inline_2-2 {
+            float: left;
+        }
+
+        form.form .form-field.input-inline_2-1 {
+            width: 35%;
+        }
+
+        form.form .form-field.input-inline_2-1::after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        form.form .form-field.input-inline_2-1 .field-label {
+            width: calc(100% - 20px);
+            padding-right: 0;
+        }
+
+        form.form .form-field.input-inline_2-1 .input-wrapper {
+            width: calc(110% - 10px);
+            padding-right: 0;
+        }
+
+        form.form .form-field.input-inline_2-2 {
+            width: 35%;
+            padding: 0 0 0 0;
+            clear: inherit;
+        }
+
+        form.form .form-field.input-inline_2-2.no-label {
+            padding-top: 30px;
+        }
+
+        form.form .form-field.input-inline_2-2::after {
+            clear: both;
+        }
+
+        form.form .form-field.input-inline_2-2 .input-wrapper {
+            padding-right: 0;
+            width: calc(110% - 10px);
+        }
+
+        form.form .form-field.input-inline_2-2+div+.form-field:not(.input-inline_2-1):not(.input-inline_3-1):not(.before_hr) {
+            padding-top: 15px;
+        }
+
+        form.form .form-field.input-inline_3-1,
+        form.form .form-field.input-inline_3-2,
+        form.form .form-field.input-inline_3-3 {
+            width: 30%;
+            float: left;
+            clear: inherit;
+        }
+
+        form.form .form-field.input-inline_3-2.no-label,
+        form.form .form-field.input-inline_3-3.no-label {
+            padding-top: 30px;
+        }
+
+        form.form .form-field.input-inline_3-1 .field-label {
+            padding-right: 0;
+        }
+
+        form.form .form-field.input-inline_3-3::after {
+            clear: both;
+        }
+
+        form.form .form-field.input-inline_3-3+div+.form-field:not(.input-inline_2-1):not(.input-inline_3-1):not(.before_hr) {
+            padding-top: 30px;
+        }
+
+        form.form .form-field.text_after .input-wrapper {
+            padding-right: 5px;
+            width: 80%;
+            display: inline-block;
+        }
+
+        form.form .form-field.text_after .hpdf-description {
+            width: auto;
+            display: inline-block;
+            padding: 0;
+        }
+
+        form.form .form-field.inline_y {
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        form.form .form-field.inline_y .input-wrapper {
+            width: 150px;
+        }
+
+        form.form .form-field.inline_m,
+        form.form .form-field.inline_d {
+            width: 120px;
+            padding: 0;
+            margin-right: 5px;
+        }
+
+        form.form .form-field.inline_m .input-wrapper,
+        form.form .form-field.inline_d .input-wrapper {
+            width: 70px;
+        }
+
+        form.form .pd-date input.date {
+            border: 1px solid #c8ced5;
+            background-color: #fff;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 15px;
+            height: 40px;
+            width: 100%;
+        }
+
+        form.form .pd-date.input-300 input.date {
+            width: 300px;
+        }
+
+        @media screen and (max-width: 520px) {
+            form.form .pd-text.input-300 input.text {
+                width: calc(80% - 10px);
+            }
+
+            form.form .form-field.input-inline_2-1,
+            form.form .form-field.input-inline_2-2 {
+                clear: both;
+            }
+
+            form.form .form-field.input-inline_2-1 {
+                width: 100%;
+            }
+
+            form.form .form-field.input-inline_2-1 .input-wrapper {
+                padding-right: 10px;
+            }
+
+            form.form .form-field.input-inline_2-2 {
+                width: calc(100% - 10px * 2);
+                padding: 0 10px;
+            }
+
+            form.form .form-field.input-inline_2-2.no-label {
+                margin-top: 10px;
+                padding: 0 10px;
+            }
+
+            form.form .form-field.input-inline_2-2.after_hr {
+                margin-bottom: 0;
+            }
+
+            form.form .form-field.input-inline_3-1,
+            form.form .form-field.input-inline_3-2,
+            form.form .form-field.input-inline_3-3 {
+                width: 100%;
+                clear: both;
+            }
+
+            form.form .form-field.input-inline_3-1 .field-label,
+            form.form .form-field.input-inline_3-2 .field-label,
+            form.form .form-field.input-inline_3-3 .field-label {
+                padding: 0 10px;
+            }
+
+            form.form .form-field.input-inline_3-1 .input-wrapper {
+                padding-right: 10px;
+            }
+
+            form.form .form-field.input-inline_3-2 .input-wrapper {
+                padding-left: 10px;
+            }
+
+            form.form .form-field.input-inline_3-2.no-label {
+                margin-top: 10px;
+                padding: 0;
+            }
+
+            form.form .form-field.input-inline_3-3.no-label {
+                margin-top: 10px;
+                padding: 0;
+            }
+
+            form.form .form-field.input-inline_3-3.after_hr {
+                margin-bottom: 0;
+            }
+
+            form.form .form-field.input-inline_3-3 .input-wrapper {
+                padding-left: 10px;
+            }
+        }
+
+        form.form .pd-textarea {
+            width: 60%;
+            /*テキストエリア編集*/
+        }
+
+        @media screen and (max-width:767px) {
+            form.form .pd-textarea {
+                width: 100%;
+            }
+        }
+
+        form.form .pd-textarea textarea,
+        form.form .pd-textarea textarea.standard {
+            padding: 15px;
+            width: calc(100% - 20px);
+            border: 1px solid #c8ced5;
+            border-radius: 5px;
+            /*テキストエリア編集*/
+        }
+
+        form.form .pd-radio .field-label {
+            margin-bottom: 30px;
+        }
+
+        form.form .pd-radio .value span {
+            display: block;
+            margin: 0 0 20px 0;
+        }
+
+        form.form .pd-radio .value span:last-child {
+            margin-bottom: 0;
+        }
+
+        form.form .pd-radio .value span input[type="radio"] {
+            width: 15px;
+            vertical-align: top;
+            margin-top: 8px;
+        }
+
+        form.form .pd-radio .value span label {
+            width: calc(100% - (15px + (20px * 2)));
+            margin-left: 10px;
+            line-height: 1.75em;
+            display: inline-block;
+        }
+
+        form.form .pd-radio.inline .value span {
+            margin: 0 30px 0 0;
+            display: inline-block;
+        }
+
+        form.form .pd-radio.inline .value span:last-child {
+            margin-right: 0;
+        }
+
+        form.form .pd-radio.inline .value span label {
+            width: calc(100% - 25px);
+        }
+
+        form.form .pd-checkbox .field-label {
+            margin-bottom: 20px;
+        }
+
+        form.form .pd-checkbox .value span {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        form.form .pd-checkbox .value span:last-child {
+            margin-bottom: 0;
+        }
+
+        form.form .pd-checkbox .value span label {
+            margin-left: 5px;
+        }
+
+        form.form .pd-checkbox.inline .value span {
+            display: inline-block;
+            margin-right: 30px;
+        }
+
+        form.form .pd-checkbox.inline .value span:last-child {
+            margin-right: 0;
+        }
+
+        form.form .policy-check {
+            background-color: #e8e8e8;
+            padding: 40px 20px;
+            border-radius: 5px;
+        }
+
+        form.form .policy-check .field-label {
+            padding-left: 0;
+        }
+
+        form.form .policy-check .privacy-policy-text {
+            border: 1px solid #5a5a5a;
+            background-color: #fff;
+            padding: 10px;
+            overflow: scroll;
+            width: calc(100% - 20px);
+            height: 200px;
+            border-radius: 5px;
+        }
+
+        form.form .policy-check .privacy-policy-text+.input-wrapper {
+            margin: 20px 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        form.form .policy-check.error .privacy-policy-text+.input-wrapper {
+            margin-bottom: 0;
+        }
+
+        form.form .pd-select .input-wrapper {
+            overflow: hidden;
+            padding: 0;
+            position: relative;
+            border: 1px solid #c8ced5;
+            border-radius: 5px;
+            background: #ffffff;
+            height: 30px;
+            display: block;
+        }
+
+        form.form .pd-select .input-wrapper::before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 40px;
+            content: "";
+            background-color: #e6e6e6;
+        }
+
+        form.form .pd-select .input-wrapper:after {
+            position: absolute;
+            top: 16px;
+            right: 12px;
+            width: 0;
+            height: 0;
+            padding: 0;
+            content: "";
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #373a3c;
+            pointer-events: none;
+        }
+
+        form.form .pd-select .input-wrapper select {
+            z-index: 10;
+            padding-left: 10px;
+            position: relative;
+            width: 100%;
+            height: 30px;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            border: none;
+            outline: none;
+            background: transparent;
+            background-image: none;
+            box-shadow: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        form.form .pd-select.input-300 .input-wrapper {
+            width: calc(300px - 20px);
+        }
+
+        @media screen and (max-width: 520px) {
+            form.form .pd-select .input-wrapper {
+                margin-left: 0;
+            }
+
+            form.form .pd-select.input-300 .input-wrapper {
+                width: calc(80% - 10px);
+            }
+        }
+
+
+        @media screen and (max-width: 520px) {
+            form.form .submit input {
+                height: 50px;
+                width: 240px;
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .title {
+                font-size: 2.4rem;
+            }
+        }
+
+        .title {
+            font-size: 2rem;
+            background: #f7f7f7;
+            border-bottom: 2px solid #008250;
+            padding: 0.5em 1em;
+        }
+
+        @media screen and (min-width: 768px) {
+            .title {
+                font-size: 2.4rem;
+
+            }
+        }
+
+        .title {
+            font-size: 2rem;
+            background: #f7f7f7;
+            border-bottom: 2px solid #008250;
+            padding: 0.5em 1em;
+        }
+
+        .field-label {
+            color: #008250;
+
+
+
+        }
+
+        #pardot-form input.text {
+            height: 30px;
+
+        }
+
+        #pardot-form .error {
+            color: #cd2121;
+            font-size: 100%;
+            font-weight: 500;
+        }
+
+        #pardot-form span.error {
+            color: #cd2121;
+        }
+
+        #pardot-form p.error span.input-wrapper .inline {
+            color: #cd2121;
+        }
+
+        #pardot-form p.submit {
+            text-align: center;
+        }
+
+        #pardot-form .form_submit,
+        #pardot-form .confirm {
+            // background:#008250;
+            background: #009a90;
+            border: none;
+            border-radius: 5px;
+            padding: 1em 3em;
+            margin: 0px 10px 0px 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        #pardot-form .field-label {
+            // color:#008250;
+            color: #009a90;
+            font-weight: bold;
+
+
+        }
+
+        #pardot-form .field-label .error {
+            font-weight: 500;
+
+        }
+
+        .comment {
+            font-size: 14px;
+            // color:#008250;
+            color: #009a90;
+            padding: 0 2px 10px 15px;
+        }
+
+        .plivacy_policy {
+            margin: 30px;
+        }
+
+        #pardot-form .back {
+            background: #FAFAFA;
+            border: collapse;
+            border-color: #008250;
+            border-radius: 5px;
+            padding: 1em 3em;
+            margin: 0px 10px 0px 10px;
+            color: #008250;
+            font-size: 16px;
+        }
+
+        #confirm {
+            display: inline-block;
+        }
+
+        #back {
+            display: none;
+        }
+
+        #submit {
+            display: none;
+        }
+
+        .chckbx {
+            margin-left: 50%;
+        }
+
+        .cancelBold label.field-label {
+            font-weight: normal !important;
+        }
+
+
+        /* 20220831 追加 */
+
+        #formwrap {
+            max-width: calc(100% - 60px);
+            display: block;
+            margin: 30px auto 30px auto;
+        }
+
+        form.form {
+            background: #f7f7f7;
+        }
+
+        form.form p {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        form.form .pd-text input.text {
+            width: 100%;
+        }
+
+        form.form .input-wrapper {
+            display: block;
+            width: 100%;
+            padding: 0;
+        }
+
+        form.form .form-field.input-inline_2-1 .input-wrapper {
+            width: 100%;
+        }
+
+        form.form p.required label,
+        form.form span.required label {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        form.form .pd-checkbox .value span {
+            margin-bottom: 0;
+        }
+
+        form.form .form-field {
+            margin-bottom: 20px !important;
+        }
+
+        #pardot-form .field-label {
+            margin-bottom: 5px !important;
+        }
+
+        form.form .pd-checkbox .value span label {
+            padding-left: 10px !important;
+        }
+
+        .cancelBold label.field-label {
+            font-weight: bold !important;
+        }
+
+        form.form .field-label {
+            padding: 0 !important;
+        }
+
+        #pardot-form p.submit {
+            margin-top: 15px !important;
+        }
+
+        form.form p.comment {
+            max-width: calc(100% - 60px);
+            display: block;
+            margin: auto !important;
+        }
+
+        form.form .field-label {
+            width: 100%;
+        }
+
+        form.form .pd-radio .value span {
+            margin: 0;
+        }
+
+        @media screen and (max-width:767px) {
+            #formwrap {
+                max-width: calc(100% - 30px);
+                margin: 15px auto 15px auto;
+            }
+
+            form.form p.comment {
+                max-width: calc(100% - 30px);
+            }
+        }
+
+        @media screen and (min-width:520px) {
+            form.form .form-field.input-inline_2-2 {
+                margin-left: 10px !important;
+            }
+        }
+
+
+        #Form-if-thank-you {
+            padding: 20px;
+        }
+
+        #Form-if-thank-you p {
+            margin-bottom: 1em !important;
+            color: #000;
+        }
+
+        form.form .form-field {
+            max-width: 680px;
+        }
+
+        input[type="button"].confirm:hover,
+        input[type="button"].back:hover,
+        input[type="submit"].form_submit:hover {
+            cursor: pointer;
+            animation: buttonHoverAction 0.7s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
+        }
+
+        @keyframes buttonHoverAction {
+            0% {
+                opacity: 1.0;
+            }
+
+            100% {
+                opacity: 0.5;
+            }
+        }
+
+        #pardot-form p.submit {
+            display: flex;
+            justify-content: center;
+        }
+
+
+
+        /* 20230123 */
+        form.form .input-wrapper label.inline {
+            font-size: 16px;
+            margin-left: 5px !important;
+        }
+
+        form.form .form-field {
+            margin-bottom: 30px !important;
+        }
+
+        #pardot-form p.submit {
+            margin-bottom: 30px !important;
+        }
+
+        #pardot-form .sonota-color-glay .field-label {
+            color: #000;
+            font-weight: normal !important;
+            font-size: 18px;
+            margin-top: -15px;
+        }
+
+        /* 20230726 */
+        #pardot-form .comment {
+            border: 1px solid #e6e6e6;
+            height: 110px;
+            overflow: auto;
+            background-color: #FFFFFF;
+            padding: 1.5em !important;
+            margin-bottom: 1em !important;
+        }
+    </style>
+    <base href="http://go.pardot.com">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="%%description%%" />
+    <title class="title">%%title%%</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://storage.pardot.com/994762/16609050230sHYnwUs/script.js"></script>
+
+</head>
+
+<body>
+
+    %%content%%
+</body>
+
+</html>

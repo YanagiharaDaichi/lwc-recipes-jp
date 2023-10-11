@@ -1,0 +1,42 @@
+<form method="get" action="%%search-action-url%%" class="form" id="pardot-form">
+    <p class="full-width">
+        <input type="text" name="q" value="%%search-query%%" size="40" />
+        <input type="submit" value="Search" />
+    </p>
+    <h2>Search results for: %%search-query%%</h2>
+
+    %%search-if-results%%
+    <ol start="%%search-result-start-position%%">
+        %%search-start-loop-results%%
+        <li>
+            <strong><a href="%%search-result-url%%">%%search-result-title%%</a></strong><br />
+            %%search-result-description%%<br />
+            <em>%%search-result-url-abbreviation%%</em> %%search-result-file-size%% KB
+        </li>
+        %%search-end-loop-results%%
+    </ol>
+
+    <p class="pager">
+        <strong>
+            %%search-if-previous-page-available%%
+            <a href="%%search-previous-page-url%%">
+                Previous (page %%search-previous-page-number%%)
+            </a>
+            %%search-else-previous-page-not-available%%
+            Previous
+            %%search-end-if-previous-page-available%% |
+
+            Page %%search-this-page-number%% of %%search-total-pages-number%% |
+
+            %%search-if-next-page-available%%
+            <a href="%%search-next-page-url%%">
+                Next (page %%search-next-page-number%%)</a>
+            %%search-else-next-page-not-available%%
+            Next
+            %%search-end-if-next-page-available%%
+        </strong>
+    </p>
+    %%search-else-no-results%%
+    %%search-no-results-content%%
+    %%search-end-if-results%%
+</form>
